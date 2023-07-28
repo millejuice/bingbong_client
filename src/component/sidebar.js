@@ -26,14 +26,38 @@ const Sidebar = () => {
         alt="Logo"
         style={{ width: "52px", height: "52px", marginBottom: "20px" }}
       />
-      <Box sx={{ display: "flex", alignItems: "center", paddingTop : '51px' }}>
-        <img src={firstIcon} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          paddingTop: "51px",
+          width: "30px",
+          height: "30px",
+        }}
+      >
+        <img src={firstIcon} style={{ width: "100%", height: "auto" }} />
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", paddingTop : '28px' }}>
-        <img src={secondIcon} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          paddingTop: "28px",
+          width: "30px",
+          height: "30px",
+        }}
+      >
+        <img src={secondIcon} style={{ width: "100%", height: "auto" }} />
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", paddingTop : '30px'}}>
-        <img src={thirdIcon} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          paddingTop: "30px",
+          width: "30px",
+          height: "30px",
+        }}
+      >
+        <img src={thirdIcon} style={{ width: "100%", height: "auto" }} />
       </Box>
     </Box>
   );
