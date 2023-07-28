@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import kakaoLogo from '../image/kakao.png'
 
 const Login = () => {
   return (
@@ -59,7 +60,7 @@ const Login = () => {
               display: "inline",
             }}
           >
-            AI 언어보안관
+            AI 언어보안관 월든
           </Typography>
           <Typography
             sx={{
@@ -72,8 +73,22 @@ const Login = () => {
             과 함께하세요!
           </Typography>
         </Box>
-        <Button variant="contained" color="primary" sx={{ backgroundColor: '#FFD700' }} onClick={() => console.log('Kakao login')}>
-          카카오 로그인
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            backgroundColor: '#FFD700',
+            color: 'black',
+            marginTop: '57px',
+            width: '352px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+          startIcon={<img src={kakaoLogo} alt="Kakao Logo" style={{ width: '24px', height: '24px', marginRight: '10px' }} />}
+          onClick={() => console.log('Kakao login')}
+        >
+          <span style={{ flexGrow: 1, textAlign: 'center' }}>카카오 로그인</span>
         </Button>
       </Box>
     </Box>
