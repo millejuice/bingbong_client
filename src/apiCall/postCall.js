@@ -104,14 +104,14 @@ export async function reflectAnalytics(id) {
 /**
  * 개발 미완. 추후 테스트 필요
  * */
-export async function reflectAnalytics(id) {
-    const response =  await fetch(
-        `http://localhost:8080/api/applies/${id}`,
-        {
-            method: "PUT",
-            withCredentials: true,
-        }
-    );
-    const result = await response.json();
-    return result;
-}
+// export async function reflectAnalytics(id) {
+//     const response =  await fetch(
+//         `http://localhost:8080/api/applies/${id}`,
+//         {
+//             method: "PUT",
+//             withCredentials: true,
+//         }
+//     );
+//     const result = await response.json();
+//     return result;
+// }

@@ -21,7 +21,7 @@ const Chat = () => {
       >
         <Sidebar />
         <ChatList />
-        <ChatRoom />
+        <ChatRoom parentId={1}/>
         {/* <WaldenPage sx={{ width: "100%" }} /> */}
         <Profile />
       </Box>
