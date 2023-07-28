@@ -1,19 +1,15 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Tab from '@mui/material/Tab';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import TabContext from '@mui/lab/TabContext';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import tab from '../image/tabBar.png'
+import first from '../image/1st.png';
+import second from '../image/2nd.png';
+import third from '../image/3rd.png';
+import fourth from '../image/4th.png';
+import fifth from '../image/5th.png';
+import sixth from '../image/6th.png';
+import copy from '../image/copy.png';
 
-const customTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#7027CD', // Set the primary color to #7027CD
-    },
-  },
-});
 
 const ChatList = () => {
   const [value, setValue] = React.useState('1');
@@ -23,7 +19,6 @@ const ChatList = () => {
   };
 
   return (
-    <ThemeProvider theme={customTheme}>
       <Box
         sx={{
           display: 'flex',
@@ -37,52 +32,93 @@ const ChatList = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
-            height: '32px',
+            width: '326.2px',
+            height: '82px',
             color: 'black',
             fontSize: 26.67,
             fontFamily: 'Inter',
             fontWeight: '600',
             lineHeight: 40,
             wordWrap: 'break-word',
-            paddingTop: '32px',
+            paddingLeft : '22.4px',
           }}
         >
           내 채팅
         </Box>
-        <TabContext value={value}>
-          <TabList
-            onChange={handleChange}
-            aria-label="chat tabs"
-            TabIndicatorProps={{ style: { backgroundColor: '#7027CD' } }}
-            sx={{ marginTop: '20px', width: '170px' }}
-          >
-            <Tab
-              label="진행중"
-              value="1"
-              TabStyleProps={{
-                value: '1',
-                textColor: '#FFFFFF',
-                backgroundColor: '#7027CD',
-              }}
-            />
-            <Tab
-              label="요청"
-              value="2"
-              TabStyleProps={{
-                value: '2',
-                textColor: '#FFFFFF',
-                backgroundColor: '#7027CD',
-              }}
-            />
-          </TabList>
-          <TabPanel value="1">진행중인 채팅</TabPanel>
-          <TabPanel value="2">상담 요청</TabPanel>
-        </TabContext>
-        {/* Other content of the ChatList component */}
+        <Box sx={{
+          display : 'flex',
+          justifyContent : 'center',
+          alignItems : 'center',
+          width : '326px',
+          height : '67px',
+        }}>
+        <img src={tab} />
+        </Box>
+        <Box sx={{
+          width : '295px',
+          height : '67px',
+        }}>
+          <img src={first} />
+        </Box>
+        <Box sx={{
+          width : '295px',
+          height : '67px',
+          paddingTop : '11px',
+        }}>
+          <img src={second} />
+        </Box>
+        <Box sx={{
+          width : '295px',
+          height : '67px',
+          paddingTop : '11px',
+        }}>
+          <img src={third} />
+        </Box>
+        <Box sx={{
+          width : '295px',
+          height : '67px',
+          paddingTop : '11px',
+        }}>
+          <img src={fourth} />
+        </Box>
+        <Box sx={{
+          width : '295px',
+          height : '67px',
+          paddingTop : '11px',
+        }}>
+          <img src={fifth} />
+        </Box>
+        <Box sx={{
+          width : '295px',
+          height : '67px',
+          paddingTop : '11px',
+        }}>
+          <img src={sixth} />
+        </Box>
+        <Box sx={{
+          display : 'flex',
+          flexDirection : 'row',
+          alignItems : 'center',
+          justifyContent : 'center',
+          width : '296px',
+          height : '47px',
+          position: 'absolute', 
+          bottom: '23px',
+          bgcolor : 'rgba(97, 94, 240, 0.06)',
+          color: 'black',
+          borderRadius : '11.2px',
+          fontSize: '16.80px',
+          fontFamily: 'Pretendard',
+          fontWeight: '600',
+          wordWrap: 'break-word',
+        }}>
+          내 학급 코드 복사
+          <img src={copy} />
+        </Box>
       </Box>
-    </ThemeProvider>
+    
   );
 };
 
