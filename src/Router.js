@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 // import { drawerWidth } from './constants/commons';
 import Sidebar from './component/sidebar';
 import Chat from './page/chat';
-import AlertDialog from './component/alert';
 
 function Router() {
   return (

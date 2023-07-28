@@ -23,7 +23,7 @@ const Chat = () => {
       <ChatRoom />
       {/* <WaldenPage sx={{ width: "100%" }} /> */}
       <Profile />
-      <AlertDialog parentName="" />
+      {/* <AlertDialog parentName="" /> */}
     </Box>
   );
 };
