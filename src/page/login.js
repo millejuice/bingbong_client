@@ -72,7 +72,7 @@ const Login = () => {
             과 함께하세요!
           </Typography>
         </Box>
-        <Button variant="contained" color="primary" onClick={() => console.log('Kakao login')}>
+        <Button variant="contained" color="primary" sx={{ backgroundColor: '#FFD700' }} onClick={() => console.log('Kakao login')}>
           카카오 로그인
         </Button>
       </Box>
