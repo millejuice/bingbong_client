@@ -6,6 +6,7 @@ import ChatList from '../component/chatList.js';
 import Box from '@mui/material/Box';
 import ChatRoom from '../component/chatRoom.js';
 import WaldenPage from './waldenPage.js';
+import Profile from '../component/profile.js';
 
 
 const Chat = () => {
@@ -13,17 +14,17 @@ const Chat = () => {
     const { id } = useParams();
 
     return (
-        <Box sx={{
-            display : 'flex',
-            
-        }}>
-            {/* <ScrollTop /> */}
-            <Sidebar />
-            <ChatList />
-            <ChatRoom />
-            <WaldenPage />
-        </Box>   
-        
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <Sidebar />
+        <ChatList />
+        <ChatRoom />
+        {/* <WaldenPage sx={{ width: "100%" }} /> */}
+        <Profile />
+      </Box>
     );
 }
 
