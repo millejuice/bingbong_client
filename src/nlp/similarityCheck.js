@@ -1,4 +1,4 @@
-async function query(data) {
+export default async function query(data) {
     const response = await fetch(
         "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2",
         {
@@ -11,6 +11,7 @@ async function query(data) {
     return result;
 }
 
+// 데이터 요청 예시
 query({"inputs": {
         "source_sentence": "That is a happy person",
         "sentences": [
