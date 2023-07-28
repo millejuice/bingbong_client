@@ -1,20 +1,108 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { queryChattingRoom } from '../apiCall/query';
+import styles from './mainMessage.module.css';
+import axios from 'axios';
+import { MessageLeft, MessageRight } from './message';
+
+import { Button, TextField, Paper } from '@mui/material';
+
+import SockJS from 'sockjs-client';
+import StompJS from 'stompjs';
+import { TextInput } from './textInput';
 // import AlertDialog from './alert';
+const messageList = [];
+const roomToken = 'qqqq';
+const user = {
+  id: 1,
+  name: 'Luke',
+};
+const chatRoomId = 1;
+let messages = [];
 
-const MyBox = ({ parentId }) => {
-  const [parentName, setParentName] = React.useState('');
+const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef }) => {
+  const client = useRef();
+  const [init, setInit] = useState(false);
+  const getMessages = async () => {
+    await axios.get(`http://localhost:8080/api/messages/${chatRoomId}`).then((res) => {
+      // setMessageList(res.data);
+      messages = res.data;
+    });
+    if (!init) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+      setInit(true);
+    }
+  };
 
-  // const getChattingRoom = async () => {
-  //   await queryChattingRoom(parentId).then((response) =>
-  //     setParentName((curr) => response.parent.name),
-  //   );
-  // };
-  // React.useEffect(() => {
-  //   getChattingRoom();
-  // }, []);
+  useEffect(() => {
+    getMessages();
+  }, [messageList]);
+
+  // useEffect(() => {
+  //   if (init) {
+  //     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+  //   }
+  // }, [init]);
+
+  useEffect(() => {
+    const sock = new SockJS('http://localhost:8080/stomp/chat');
+    client.current = StompJS.over(sock);
+    waitForConnection(client, stompConnect);
+    return () => stompDisconnect();
+  }, []);
+
+  const stompConnect = () => {
+    try {
+      client.current.connect({}, () => {
+        client.current.subscribe(`/sub/chat/${roomToken}`, (chat) => {
+          const newMessage = JSON.parse(chat.body);
+          // setMessageList([...messageList, newMessage]);
+          messages = messages.push(newMessage);
+          messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+
+          // messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+          // window.location.reload();
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const stompDisconnect = () => {
+    try {
+      client.current.disconnect(() => {
+        client.current.unsubscribe('sub-0');
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function waitForConnection(client, callback) {
+    setTimeout(
+      function () {
+        // 연결되었을 때 콜백함수 실행
+        if (client.current.ws.readyState === 0) {
+          callback();
+          // 연결이 안 되었으면 재호출
+        } else {
+          waitForConnection(client, callback);
+        }
+      },
+      1, // 밀리초 간격으로 실행
+    );
+  }
+
+  const sendCall = (message) => {
+    client.current.send(
+      '/pub/chat',
+      {},
+      JSON.stringify({
+        message: message,
+        roomToken: roomToken,
+        senderId: 1,
+        type: 'message',
+      }),
+    );
+  };
 
   return (
     <Box
@@ -27,14 +115,102 @@ const MyBox = ({ parentId }) => {
         alignItems: 'center',
       }}
     >
-      <TextField
-        label="메세지를 입력하세요"
-        variant="outlined"
-        sx={{ marginBottom: '20px', width: '300px' }}
-      />
-      {/* <AlertDialog  parentName={parentName}/> */}
+      <Paper style={{ width: '597px', height: 'calc(81.3vh )' }} zdepth={1}>
+        <Paper className={styles.messagesBody}>
+          {/* 여기를 백엔드와 연결해서 구현해야 함 */}
+          {/* 
+						if message가 상대방한테서 온 거면 
+						그 메시지 정보를 <MessageLeft> 컴포넌트에 props로 넘겨준다
+						if message가 내가 상대에게 보낸 거면
+						그 메시지 정보를 <MessageRight> 컴포넌트에 props로 넘겨준다
+					*/}
+
+          {messages.map((m) =>
+            m.member.id === user.id ? (
+              <MessageRight
+                key={m.id}
+                message={m.message}
+                timestamp={m.sendAt}
+                photoURL="/img/profile_default.png"
+                displayName={user.name}
+                avatarDisp={true}
+              />
+            ) : (
+              <>
+                {m.member.id === 77 ? (
+                  <>
+                    <MessageLeft
+                      key={m.id}
+                      message={m.message}
+                      timestamp={m.sendAt}
+                      photoURL="./worden.png"
+                      displayName={m.member.name}
+                      avatarDisp={true}
+                      worden={true}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <MessageLeft
+                      key={m.id}
+                      message={m.message}
+                      timestamp={m.sendAt}
+                      photoURL="/img/profile_default.png"
+                      displayName={m.member.name}
+                      avatarDisp={true}
+                      worden={false}
+                    />
+                  </>
+                )}
+              </>
+            ),
+          )}
+          <div ref={messagesEndRef}></div>
+        </Paper>
+
+        <TextInput onClick={sendCall}></TextInput>
+      </Paper>
+      <Box>
+        <Button
+          sx={{ height: '57px', width: '298.5px' }}
+          onClick={() => startCall()}
+          color="success"
+          variant="outlined"
+        >
+          상담시작
+        </Button>
+        <Button
+          sx={{ height: '57px', width: '298.5px' }}
+          onClick={() => endCall()}
+          color="error"
+          variant="outlined"
+        >
+          상담종료
+        </Button>
+      </Box>
     </Box>
   );
 };
 
 export default MyBox;
+
+// const [message, setMessage] = useState('');
+// const [chatLog, setChatLog] = useState([]);
+// const messagesEndRef = useRef(null);
+
+// useEffect(() => {
+//   const sock = new SockJS('http://localhost:8080/stomp/chat');
+//   client.current = StompJS.over(sock);
+//   waitForConnection(client, stompConnect);
+//   return () => stompDisconnect();
+// }, []);
+
+// GET
+// async function getAllMessages() {
+//   try {
+//     const response = await axios.get(`http://localhost:8080/chat/message/${roomId}`);
+//     setMessages(response.data);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
