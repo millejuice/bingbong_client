@@ -1,17 +1,22 @@
 import './App.css';
-import background from "./image/background.png"
+import background from './image/background.png';
 import Chat from './page/chat';
 import Login from './page/login';
 import { Box } from '@mui/material';
-import AlertDialog from './component/chatRoom.js';
+// import AlertDialog from './component/alert';
 
+import { Box, ThemeProvider } from '@mui/material';
+import { theme } from './theme/theme';
+import Router from './Router';
 function App() {
   return (
-    <Box>
-      {/* <Login /> */}
-      <Chat />
-      <AlertDialog parentName=""/>
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Box>
+        {/* <Login /> */}
+        {/* <Chat /> */}
+        <Router />
+      </Box>
+    </ThemeProvider>
   );
 }
 
