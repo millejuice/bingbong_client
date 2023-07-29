@@ -12,6 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import BarChartComponent from "../component/BarChartComponent.js";
 import RadarChartComponent from "../component/radarChartComponent";
+import {queryAnalytics} from "../apiCall/query.js";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -63,9 +64,24 @@ Item.propTypes = {children: PropTypes.node};
 const Profile = () => {
     const [open, setOpen] = React.useState(false);
 
+    const [toxic, setToxic] = React.useState(0.0);
+    const [profanity, setProfanity] = React.useState(0.0);
+    const [insult, setInsult] = React.useState(0.0);
+    const [derogatory, setDerogatory] = React.useState(0.0);
+    const [violent, setViolent] = React.useState(0.0);
+
+    const getAnalytics = async () => {
+        queryAnalytics("1").then((response) => {
+            setToxic(response.averageReport.toxic);
+            setProfanity(response.averageReport.profanity);
+            setInsult(response.averageReport.insult);
+            setDerogatory(response.averageReport.derogatory);
+            setViolent(response.averageReport.violent);
+        });
+    };
     const handleClickOpen = () => {
         setOpen(true);
-        console.log("open");
+        getAnalytics();
     };
     const handleClose = () => {
         setOpen(false);
@@ -80,7 +96,8 @@ const Profile = () => {
                 // style={{ marginTop: "50px" }}
             />
             <Box onClick={handleClickOpen} sx={{ '& > :not(style)': { m: 1 } }} style={{position:"absolute", top:"120px", right:"30px"}}>
-                <Fab color="secondary" variant="extended">
+                <Fab style={{backgroundColor:"#7027CD", color:"#ffffff"}} variant="extended">
+                    {/*<Fab color="secondary" variant="extended">*/}
                     <AddIcon />
                     분석 결과
                 </Fab>
@@ -91,7 +108,7 @@ const Profile = () => {
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    AI 보안관 Worden의 분석 결과
+                    Worden이 분석한 <strong>문현숙 학부모님</strong>의 결과
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <Typography>
@@ -100,13 +117,13 @@ const Profile = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
                             <div>
-                                <BarChartComponent />
+                                <BarChartComponent toxic={toxic} insult={insult} profanity={profanity} derogatory={derogatory} violent={violent} />
                             </div>
 
                         </Grid>
                         <Grid item xs={6}>
                             <div>
-                                <RadarChartComponent />
+                                <RadarChartComponent toxic={toxic} insult={insult} profanity={profanity} derogatory={derogatory} violent={violent}/>
                             </div>
 
                         </Grid>

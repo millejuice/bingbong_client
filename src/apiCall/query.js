@@ -86,7 +86,7 @@ export async function queryAllClassMembers(id) {
  * */
 export async function queryAnalytics(id) {
     const response = await fetch(
-        `http://localhost:8080/api/evaluation/analytics/${id}`,
+        `http://localhost:8080/api/evaluations/analytics/${id}`,
         {
             method: method,
             withCredentials: true,

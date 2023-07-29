@@ -93,6 +93,7 @@ const Chat = () => {
     <Box
       sx={{
         display: 'flex',
+        backgroundColor:"#F6F6FE"
       }}
     >
       <Sidebar />
