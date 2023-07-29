@@ -9,19 +9,50 @@ import { Button, TextField, Paper } from '@mui/material';
 import SockJS from 'sockjs-client';
 import StompJS from 'stompjs';
 import { TextInput } from './textInput';
-// import AlertDialog from './alert';
-const messageList = [];
-const roomToken = 'qqqq';
-const user = {
-  id: 1,
-  name: 'Luke',
-};
-const chatRoomId = 1;
-let messages = [];
 
-const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef }) => {
+import { useCallback } from 'react';
+import stylesInput from './textInput.module.css';
+// import AlertDialog from './alert';
+// const roomToken = 'qqqq';
+// const user = {
+//   id: 1,
+//   name: 'Luke',
+// };
+// const chatRoomId = 1;
+// let messages = [];
+
+// const urlStr = window.location.href;
+// const url = new URL(urlStr);
+// const urlParams = url.searchParams;
+
+// const classRoomI = urlParams.get('classRoomId');
+// const roomToke = urlParams.get('roomToken');
+// const userI = urlParams.get('userId');
+// const userNam = urlParams.get('userName');
+// const chatRoomI = urlParams.get('chatRoomId');
+
+let messages = [];
+const MyBox = ({
+  messageList,
+  setMessageList,
+  startCall,
+  endCall,
+  messagesEndRef,
+  roomToken,
+  classRoomId,
+  userId,
+  userName,
+  chatRoomId,
+}) => {
   const client = useRef();
   const [init, setInit] = useState(false);
+  const [msg, setMsg] = useState('');
+  // const [classRoomId, setClassRoomId] = useState(classRoomI);
+  // const [roomToken, setRoomToken] = useState(roomToke);
+  // const [userId, setUserId] = useState(userI);
+  // const [userName, setUserName] = useState(userNam);
+  // const [chatRoomId, setChatRoomId] = useState(chatRoomI);
+
   const getMessages = async () => {
     await axios.get(`http://localhost:8080/api/messages/${chatRoomId}`).then((res) => {
       // setMessageList(res.data);
@@ -57,6 +88,7 @@ const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef
           const newMessage = JSON.parse(chat.body);
           // setMessageList([...messageList, newMessage]);
           messages = messages.push(newMessage);
+          window.location.reload();
           messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
 
           // messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -98,7 +130,7 @@ const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef
       JSON.stringify({
         message: message,
         roomToken: roomToken,
-        senderId: 1,
+        senderId: userId,
         type: 'message',
       }),
     );
@@ -126,13 +158,13 @@ const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef
 					*/}
 
           {messages.map((m) =>
-            m.member.id === user.id ? (
+            m.member.id == userId ? (
               <MessageRight
                 key={m.id}
                 message={m.message}
                 timestamp={m.sendAt}
                 photoURL="/img/profile_default.png"
-                displayName={user.name}
+                displayName={userName}
                 avatarDisp={true}
               />
             ) : (

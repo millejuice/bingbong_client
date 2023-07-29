@@ -20,33 +20,33 @@ export default function ClipBoardAlert({ parentName }) {
     };
 
     const handleClickOpen = () => {
-        setOpen(true);
+      setOpen(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+      setOpen(false);
     };
 
     const handleCloseConfirm = () => {
-        setOpen(false);
+      setOpen(false);
     };
 
     return (
-        <div>
+      <div>
             <Button onClick={() => handleCopyClipBoard('clipBoard')}><img src={copyCodeButton} style={{position: "absolute", bottom:"80px", left:"15px", width:"300px"}}/></Button>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    { "클립보드에 복사 되었습니다." }
-                </DialogTitle>
-                <DialogActions>
-                    <Button onClick={handleClose}>확인</Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            { "클립보드에 복사 되었습니다." }
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose}>확인</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     );
 }
