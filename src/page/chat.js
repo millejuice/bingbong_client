@@ -11,9 +11,22 @@ import AddIcon from '@mui/icons-material/Add';
 import SockJS from 'sockjs-client';
 import StompJS from 'stompjs';
 
+// { classRoomId, roomToken, userId, userName, chatRoomId }
+
+// const urlStr = window.location.href;
+// const url = new URL(urlStr);
+// const urlParams = url.searchParams;
+
+// const classRoomId = urlParams.get('classRoomId');
+// const roomToken = urlParams.get('roomToken');
+// const userId = urlParams.get('userId');
+// const userName = urlParams.get('userName');
+// const chatRoomId = urlParams.get('chatRoomId');
+
 const Chat = () => {
   const theme = useTheme();
-  const { id } = useParams();
+  const { classRoomId, roomToken, userId, userName, chatRoomId } = useParams();
+
   const client = useRef();
   const messagesEndRef = useRef(null);
 
@@ -83,7 +96,7 @@ const Chat = () => {
       '/pub/session',
       {},
       JSON.stringify({
-        chatRoomId: 1,
+        chatRoomId: chatRoomId,
         type: 'end',
       }),
     );
@@ -93,7 +106,6 @@ const Chat = () => {
     <Box
       sx={{
         display: 'flex',
-        backgroundColor:"#F6F6FE"
       }}
     >
       <Sidebar />
@@ -104,6 +116,11 @@ const Chat = () => {
         startCall={startCall}
         endCall={endCall}
         messagesEndRef={messagesEndRef}
+        classRoomId={classRoomId}
+        roomToken={roomToken}
+        userId={userId}
+        userName={userName}
+        chatRoomId={chatRoomId}
       />
       {/* <WaldenPage sx={{ width: "100%" }} /> */}
       <Profile />
