@@ -115,7 +115,7 @@ const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef
         alignItems: 'center',
       }}
     >
-      <Paper style={{ width: '597px', height: 'calc(81.3vh )' }} zdepth={1}>
+      <Paper style={{ width: '597px', height: 'calc(90.3vh )' }} zdepth={1}>
         <Paper className={styles.messagesBody}>
           {/* 여기를 백엔드와 연결해서 구현해야 함 */}
           {/* 
@@ -168,26 +168,67 @@ const MyBox = ({ messageList, setMessageList, startCall, endCall, messagesEndRef
           <div ref={messagesEndRef}></div>
         </Paper>
 
-        <TextInput onClick={sendCall}></TextInput>
+        <TextInput 
+          style={{ 
+            width: '500px', 
+            backgroundColor: '#eee', 
+            paddingBottom: '20px', 
+            borderRadius: '5px' 
+          }} 
+        onClick={sendCall}></TextInput>
       </Paper>
       <Box>
-        <Button
+        {/* <Button
           sx={{ height: '57px', width: '298.5px' }}
           onClick={() => startCall()}
           color="success"
           variant="outlined"
         >
           상담시작
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           sx={{ height: '57px', width: '298.5px' }}
           onClick={() => endCall()}
           color="error"
           variant="outlined"
         >
           상담종료
-        </Button>
+        </Button> */}
+            
       </Box>
+      <Box
+  sx={{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',  // The parent box takes up full width
+  }}
+>
+  <Box
+    sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',  // The middle box also takes up full width
+      fontSize: '23.80px',
+      fontFamily: 'Pretendard',
+      fontWeight: 600,
+      lineHeight: '29.75px',
+      wordWrap: 'break-word',
+    }}
+  >
+    문현숙
+  </Box>
+  <Button
+    sx={{ height: '57px', width: '35px' }}
+    onClick={() => endCall()}
+    color="error"
+    variant="text"
+  >
+    종료
+  </Button>
+</Box>
+
+
     </Box>
   );
 };
