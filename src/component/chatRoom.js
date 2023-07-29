@@ -251,10 +251,10 @@ const MyBox = ({
     문현숙
   </Box>
   <Button
-    sx={{ height: '57px', width: '35px' }}
+    sx={{ height: '45px', width: '25px', marginRight: '10px', marginBottom: '10px'}}
     onClick={() => endCall()}
     color="error"
-    variant="text"
+    variant="outlined"
   >
     종료
   </Button>

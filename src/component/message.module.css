@@ -16,12 +16,12 @@
   margin-left: 20px;
   margin-bottom: 10px;
   padding: 15px;
-  background-color: #d3d3d3;
-  width: 30vw;
+  background-color: #F1F1F1;
+  width: 15vw;
   /* height: 50px; */
   text-align: left;
   font: 400 0.9em 'Open Sans' 'sans-serif';
-  border: 1px solid #d3d3d3;
+  border: 1px solid #F1F1F1;
   border-radius: 10px;
 }
 .messageBlue:after {
@@ -29,7 +29,7 @@
   position: absolute;
   width: 50px;
   height: 0;
-  border-top: 15px solid #d3d3d3;
+  border-top: 15px solid #F1F1F1;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   top: 0;
@@ -41,7 +41,7 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 17px solid #d3d3d3;
+  border-top: 17px solid #F1F1F1;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
   top: -1px;
@@ -55,7 +55,7 @@
   padding: 15px;
   background-color: #7a2ed6;
   color: white;
-  width: 30vw;
+  width: 15vw;
   /* height: 50px; */
   text-align: left;
   font: 400 0.9em 'Open Sans' 'sans-serif';
