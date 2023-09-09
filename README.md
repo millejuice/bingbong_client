@@ -82,3 +82,6 @@
 ### 걸어온길 
 https://www.notion.so/db5547f5eecb4fa590d4071ab94bbb3a
 
+### 원본 Repo
+https://github.com/DREAMLANDTHON/BingBong_Client
+
